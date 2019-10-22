@@ -8,7 +8,6 @@
     <link rel="stylesheet" th:href="@{/css/iconfont.css}">
     <link rel="stylesheet" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/editormd.preview.css}"/>
-
 </head>
 <style>
 </style>
@@ -156,7 +155,9 @@
             <small style="color:#333;"><span class="fui-user"></span>发起人:</small>
             <hr>
             <small>
+                <a th:href="@{/people}+'?id='+${question.creator}">
                 <img class="img-rounded" width="40px;" th:src="${question.user.avatarUrl}">
+                </a>
             </small>
             <hr>
             <div class="name" th:if="${question.user.name!=null && question.user.name!=''}">
@@ -174,6 +175,10 @@
             <div class="bio" th:if="${question.user.bio!=null && question.user.bio!=''}">
                 <small>个人简介:</small>
                 <span style="font-size:12px;color: #155faa;" th:text="${question.user.bio}"></span>
+            </div>
+            <div class="bio" th:if="${question.user.bio!=null && question.user.bio!=''}">
+                <small>积分:</small>
+                <span style="font-size:12px;color: #155faa;" th:text="${integral}">0</span>
             </div>
             <hr th:height="1px">
             <!--相关问题--->

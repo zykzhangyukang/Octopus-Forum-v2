@@ -10,13 +10,13 @@ public class PeopleDetailsInfo {
     private Integer followCount;
 
     //我的积分
-    private long integral;
+    private Long integral;
 
-    public long getIntegral() {
+    public Long getIntegral() {
         return integral;
     }
 
-    public void setIntegral(long integral) {
+    public void setIntegral(Long integral) {
         this.integral = integral;
     }
 

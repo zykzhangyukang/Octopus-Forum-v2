@@ -203,7 +203,7 @@ public class UserServiceImpl implements UserService {
             integral.setUserId(id);
             integral.setGmtCreate(System.currentTimeMillis());
             integral.setGmtModified(System.currentTimeMillis());
-            integralMapper.insertSelective(integral);
+            integralMapper.insert(integral);
         }
     }
 

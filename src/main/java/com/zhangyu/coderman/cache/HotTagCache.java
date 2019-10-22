@@ -28,8 +28,8 @@ public class HotTagCache {
             }
         }
         int size = objects.size();
-        if(size>=30){
-            return objects.subList(0,30);
+        if(size>=33){
+            return objects.subList(0,33);
         }
         return objects;
     }

@@ -1,14 +1,12 @@
 package com.zhangyu.coderman.controller;
 
+import com.squareup.okhttp.internal.Internal;
 import com.zhangyu.coderman.dao.*;
 import com.zhangyu.coderman.dto.CommentDTO;
 import com.zhangyu.coderman.dto.ResultTypeDTO;
 import com.zhangyu.coderman.exception.CustomizeException;
 import com.zhangyu.coderman.modal.*;
-import com.zhangyu.coderman.myenums.CommentNotificationType;
-import com.zhangyu.coderman.myenums.CommentStatus;
-import com.zhangyu.coderman.myenums.CustomizeErrorCode;
-import com.zhangyu.coderman.myenums.QuestionErrorEnum;
+import com.zhangyu.coderman.myenums.*;
 import com.zhangyu.coderman.service.QuestionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +47,12 @@ public class QuestionController {
     @Autowired
     private QuestionZanMapper questionZanMapper;
 
+    @Autowired
+    private IntegralMapper integralMapper;
+
+    @Autowired
+    private UserExtMapper userExtMapper;
+
 
     /**
      * 问题详情
@@ -78,7 +82,12 @@ public class QuestionController {
         List<CommentDTO> commentDTOS = questionService.findQuestionComments(question.getId());
         //收藏该问题的人
         List<User> collectUsers=questionService.findCollectUsers(question.getId());
-
+        Long integral = userExtMapper.getIntegral(question.getCreator());
+        if(integral!=null){
+            map.put("integral",integral);
+        }else {
+            map.put("integral",0);
+        }
         map.put("comments", commentDTOS);
         map.put("question", question);
         map.put("collect_users",collectUsers);
@@ -164,6 +173,23 @@ public class QuestionController {
             notification.setReceiver((long) dbQuestion.getCreator());
             notification.setStatus(CommentStatus.UN_READ.getCode());
             notificationMapper.insertSelective(notification);
+            //被点赞的人可以获得2积分
+            IntegralExample example1 = new IntegralExample();
+            IntegralExample.Criteria criteria1 = example1.createCriteria();
+            criteria1.andUserIdEqualTo(dbQuestion.getCreator());
+            List<Integral> integrals = integralMapper.selectByExample(example1);
+            if(integrals.size()>0){
+                Integral integral = integrals.get(0);
+                integral.setIntegral(integral.getIntegral()+IntegralType.LIKE.getVal());
+                integralMapper.updateByPrimaryKeySelective(integral);
+            }else{
+                Integral integral = new Integral();
+                integral.setIntegral(IntegralType.LIKE.getVal());
+                integral.setUserId(dbQuestion.getCreator());
+                integral.setGmtModified(System.currentTimeMillis());
+                integral.setGmtCreate(System.currentTimeMillis());
+                integralMapper.insert(integral);
+            }
         }
         return new ResultTypeDTO().okOf().addMsg("likequestioncount",dbQuestion.getLikeCount()+1);
     }
@@ -196,6 +222,23 @@ public class QuestionController {
                 collect.setQuestionId(id);
                 collect.setUserId(user.getId());
                 collectMapper.insert(collect);
+                //被收藏的人添加积分
+                IntegralExample example = new IntegralExample();
+                IntegralExample.Criteria criteria1 = example.createCriteria();
+                criteria1.andUserIdEqualTo(dbQuestion.getCreator());
+                List<Integral> integrals = integralMapper.selectByExample(example);
+                if(integrals.size()>0){
+                    Integral integral = integrals.get(0);
+                    integral.setIntegral(integral.getIntegral()+ IntegralType.COMMENT.getVal());
+                    integralMapper.updateByPrimaryKeySelective(integral);
+                }else {
+                    Integral integral = new Integral();
+                    integral.setUserId(dbQuestion.getCreator());
+                    integral.setIntegral(IntegralType.COMMENT.getVal());
+                    integral.setGmtCreate(System.currentTimeMillis());
+                    integral.setGmtModified(System.currentTimeMillis());
+                    integralMapper.insert(integral);
+                }
             }
         }
         return new ResultTypeDTO().okOf();

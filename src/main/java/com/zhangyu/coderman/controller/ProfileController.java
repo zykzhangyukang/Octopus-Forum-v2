@@ -76,8 +76,9 @@ public class ProfileController {
         peopleDetailsInfo.setFollowCount(userExtMapper.getFollowCount(user.getId()));
         peopleDetailsInfo.setQuestionCount(userExtMapper.getQuestionCount(user.getId()));
         peopleDetailsInfo.setCollectCount(userExtMapper.getCollectCount(user.getId()));
-        peopleDetailsInfo.setIntegral(userExtMapper.getIntegral(user.getId()));
-
+        if(user!=null){
+            peopleDetailsInfo.setIntegral(userExtMapper.getIntegral(user.getId()));
+        }
         map.put("peopleDetails",peopleDetailsInfo);
         map.put("people", user);
         return "profile";

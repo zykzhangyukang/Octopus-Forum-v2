@@ -1,7 +1,9 @@
 package com.zhangyu.coderman.myenums;
 
 public enum IntegralType {
-    SIGN_IN(10,"签到");
+    SIGN_IN(10,"签到"),
+    COMMENT(5,"被评论"),
+    LIKE(2,"被点赞" );
     private long val;
     private String message;
 
