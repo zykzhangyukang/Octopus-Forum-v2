@@ -92,6 +92,54 @@
         border-radius: 2px;
         cursor: pointer;
     }
+    .fly-panel {
+        margin-bottom: 15px;
+        margin-left: 0px;
+        padding: 0px;
+        border-radius: 2px;
+        background-color: #fff;
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+    }
+    .fly-panel-title {
+        position: relative;
+        height: 50px;
+        line-height: 50px;
+        padding: 0 15px;
+        border-bottom: 1px dotted #E9E9E9;
+        color: #333;
+        border-radius: 2px 2px 0 0;
+        font-size: 14px;
+    }
+    .fly-list-one dd {
+        margin: 0 5px;
+        line-height: 25px;
+        white-space: nowrap;
+        overflow: hidden;
+        list-style: decimal-leading-zero inside;
+        *list-style-type: decimal inside;
+        color: #009E94;
+    }
+    dl {
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+    }
+    .fly-list-one dd a {
+        max-width: 80%;
+        display: inline-block;
+        margin-right: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 14px;
+        color: #333;
+    }
+    .fly-list-one dd span {
+        font-size: 12px;
+        color: #ccc;
+    }
 </style>
 
 <body>
@@ -232,27 +280,27 @@
             <div style="padding: 5px 0px;" class="tag_wrapper col-lg-12 col-md-12 col-sm-12">
             </div>
         </div>
+
         <!--最新用户-->
         <lable><span style="font-size: 16px;margin-bottom: 10px;display: inline-block;"
                      class="iconfont icon-xin-yonghuguanli"></span>最近登入
         </lable>
         <ul id="userlist" class="list-group">
         </ul>
+
+
         <!--热门推荐-->
         <lable><span style="font-size: 20px;color: #f40;margin-bottom: 10px;display: inline-block;"
                      class="iconfont icon-tuijian"></span>热门推荐
         </lable>
         <ul class=" rightlist" id="recommend_wrapper" style="margin: 0px;padding: 0px;">
         </ul>
-
-        <!--最近更新-->
+        最近更新
         <lable><span style="margin-top: 10px;font-size: 20px;color: #f4d03f;margin-bottom: 10px;display: inline-block;"
                      class="iconfont icon-zuijingengxin1"></span>最近更新
         </lable>
         <ul class="list-group rightlist" id="newquestions_wrapper" style="margin: 0px;padding: 0px;">
         </ul>
-        <hr>
-
 
 
         <!--侧边栏广告-->
@@ -278,7 +326,6 @@
     <input type="hidden" name="category" id="category_param" th:value="${category}">
 </form>
 </body>
-
 <script th:src="@{/js/indexdata.js}"></script>
 <script th:src="@{/layer/layer.js}"></script>
 <script src="webjars/bootstrap/3.3.5/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/3.3.5/js/bootstrap.min.js}"></script>
@@ -287,6 +334,49 @@
 <script th:src="@{/js/sweetalert.min.js}"></script>
 <script th:src="@{/js/register.js}"></script>
 <script>
+    $("#LAY_signinHelp").click(function () {
+        //示范一个公告层
+        layer.open({
+            type: 1
+            ,title: false //不显示标题栏
+            ,closeBtn: false
+            ,area: '300px;'
+            ,shade: 0.8
+            ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+            ,btn: ['瞧瞧这小样', '残忍拒绝']
+            ,btnAlign: 'c'
+            ,moveType: 1 //拖拽模式，0或者1
+            ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">各位参观的小伙伴！<br>小章鱼欢迎你的到来哟~<br><br>该社区只是作为一个小社区，由于其用户基数小的可怜，但是，来到本站既是缘分（嘻嘻） <br><br>不妨交个朋友，大家相互学习，大三计算机科学与技术专业小菜鸡一枚。多多指教<br><br>我们此后的征途是星辰大海 ^_^</div>'
+            ,success: function(layero){
+                var btn = layero.find('.layui-layer-btn');
+                btn.find('.layui-layer-btn0').attr({
+                    href: 'https://github.com/zykzhangyukang'
+                    ,target: '_blank'
+                });
+            }
+        });
+    })
+    $("#LAY_signinTop").click(function () {
+        layer.open({
+            type: 1
+            ,title: false //不显示标题栏
+            ,closeBtn: false
+            ,area: '300px;'
+            ,shade: 0.8
+            ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+            ,btn: ['瞧瞧这小样', '残忍拒绝']
+            ,btnAlign: 'c'
+            ,moveType: 1 //拖拽模式，0或者1
+            ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">各位参观的小伙伴！<br>小章鱼欢迎你的到来哟~<br><br>该社区只是作为一个小社区，由于其用户基数小的可怜，但是，来到本站既是缘分（嘻嘻） <br><br>不妨交个朋友，大家相互学习，大三计算机科学与技术专业小菜鸡一枚。多多指教<br><br>我们此后的征途是星辰大海 ^_^</div>'
+            ,success: function(layero){
+                var btn = layero.find('.layui-layer-btn');
+                btn.find('.layui-layer-btn0').attr({
+                    href: 'https://github.com/zykzhangyukang'
+                    ,target: '_blank'
+                });
+            }
+        });
+    })
     $(function () {
         $('#myTabs a').click(function (e) {
             $("#sortby_param").attr("sortby", this.id);
@@ -305,7 +395,6 @@
         $('.carousel').carousel({
             interval: 1900
         })
-
         //弹出登入框
         $('.login_btn').click(function () {
             $(".login_modal").modal("show");
@@ -317,8 +406,6 @@
                 $("#signin").attr("disabled","disabled") ;
             }
         })
-
-
     })
     //签到
     $("#signin").click(function () {
@@ -331,8 +418,27 @@
               swal("签到成功", "获得10积分", "success",
                   {
                       buttons: false,
-                      timer: 2500,
+                      timer: 2400,
                   });
+              layer.open({
+                  type: 1
+                  ,title: false //不显示标题栏
+                  ,closeBtn: false
+                  ,area: '300px;'
+                  ,shade: 0.8
+                  ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                  ,btn: ['瞧瞧这小样', '残忍拒绝']
+                  ,btnAlign: 'c'
+                  ,moveType: 1 //拖拽模式，0或者1
+                  ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">各位参观的小伙伴！<br>小章鱼欢迎你的到来哟~<br><br>该社区只是作为一个小社区，由于其用户基数小的可怜，但是，来到本站既是缘分（嘻嘻） <br><br>不妨交个朋友，大家相互学习，大三计算机科学与技术专业小菜鸡一枚。多多指教<br><br>我们此后的征途是星辰大海 ^_^</div>'
+                  ,success: function(layero){
+                      var btn = layero.find('.layui-layer-btn');
+                      btn.find('.layui-layer-btn0').attr({
+                          href: 'https://github.com/zykzhangyukang'
+                          ,target: '_blank'
+                      });
+                  }
+              });
           }else{
               layer.msg(data.message, {time: 2000, icon: 5, shift: 6}, function () {
               });

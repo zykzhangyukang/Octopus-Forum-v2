@@ -4,7 +4,7 @@ body, html {
     height: 100%;
     margin: 0px;
     overflow-y: auto;
-    background-image: url("/images/bg/timg.jpg");
+    background-image: url("/images/bg/5-15122G42559.png");
 }
 
 .list li {
@@ -25,8 +25,8 @@ body, html {
     display: block;
     width: 100%;
     padding: 0px 10px;
-    color: #eeeeff;
-    font-weight: normal;
+    color: #303030;
+    font-weight: 600;
 }
 #myTabs li a{
     color: #000000!important;
@@ -43,13 +43,14 @@ body, html {
     text-decoration: none !important;color: #333;
     font-size: 17px;
     font-family: "微软雅黑";}
-.list li{transition: all 50ms;}
-.list li:hover{background-color: #337ab7; !important;}
+.list li{transition: all 50ms;opacity: .8}
+.list li:hover{background-color: #1890ff; !important;color: #fff!important;}
+.list li:hover a{color: #ffff}
 .list .active a{
     color: #FFFFFF!important;
 }
 #types .active{
-    background-color: #337ab7; !important;
+    background-color: #1890ff; !important;
 }
 #types li a{text-decoration: none;}
 
@@ -124,7 +125,7 @@ body, html {
 }
 .main {
     background-color: #fff;
-    border-radius: 20px;
+    border-radius: 18px;
     padding-top: 18px;
     padding-left: 20px;
     overflow: hidden;

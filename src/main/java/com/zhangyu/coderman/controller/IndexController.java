@@ -345,8 +345,8 @@ public class IndexController {
         //最新用户
         List<NewUserDTO> userList = userService.findNewsUsers(6);
         //热门标签
-        List<String> hot = hotTagCache.updateTags();
-        //List<String> hot = redisTemplate.opsForList().range("hot", 0, -1);
+        //List<String> hot = hotTagCache.updateTags();
+        List<String> hot = redisTemplate.opsForList().range("hot", 0, -1);
         //最新问题
         List<QuestionDTO> NewQuestions = questionService.findNewQuestion(7);
         //问题推荐
