@@ -140,7 +140,7 @@ oss.accessKeySecret =*******
 
 ![首页](/images/2.png "optional title")
 
-![话题](/images/3.png "optional title")
+![话题](/images/3.PNG "optional title")
 
 
 
