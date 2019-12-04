@@ -46,7 +46,7 @@ java -jar target/coderman-0.0.1-SNAPSHOT.jar
 │  ├─exception          自定义异常
 │  ├─dao                数据访问层
 │  ├─utils              工具类
-│  ├─test               测试类
+│__├─test               测试类
 ~~~~
 
 6. 访问项目
@@ -98,24 +98,63 @@ http://localhost:8080
 [Live Reload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei/related)  
 [Postman](https://chrome.google.com/webstore/detail/coohjcphdfgbiolnekdpbcijmhambjff)
 
-## 脚本
-```sql
-CREATE TABLE USER
-(
-    ID int AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    ACCOUNT_ID VARCHAR(100),
-    NAME VARCHAR(50),
-    TOKEN VARCHAR(36),
-    GMT_CREATE BIGINT,
-    GMT_MODIFIED BIGINT
-);
+## 本地部署
+1. 导入sql文件夹的sql脚本
+2. 修改配置文件的内容(application.properties)
+
 ```
+spring.datasource.username=your_database_name
+spring.datasource.password=your_database_password
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/coderman
+```
+3. 如果需要第三方登入（将已下的配置改成自己的就OK）
+```
+#Github
+github.client.id=*****
+github.client.secret=********
+github.client.redirecturi=*******
+
+##baidu
+baidu.client.id=*******
+baidu.client.secret=**********
+baidu.client.redirecturi=********
+
+##qq
+qq.client.id=******
+qq.client.secret=*******
+qq.client.redirecturi=********
+
+#修改成自己阿里云Key和accessKeySecret
+oss.endpoint=********
+oss.accessKeyId=*****
+oss.bucketName =*****
+oss.accessKeySecret =*******
+
+```
+
+4.启动项目
+
+5. 浏览器访问：http://localhost:8080 (看到已下页面就成功了)
+
+
+![首页](/images/2.png "optional title")
+
+![话题](/images/3.png "optional title")
+
+
+
+
 ## 更新
 1. 2019.10.21:添加积分模块，实现每日点赞
 2. 每日签到可获得10积分
 3. 2019.10.22：当你的问题被别人收藏的时候可以获得5点积分.
-3. 当你的问题被别人点赞的时候你可以获得2积分
+4. 当你的问题被别人点赞的时候你可以获得2积分
 
 ## 联系
 章鱼社区交流群:830790908
+
+## 友情链接
+[章鱼权限系统](http://203.195.251.68/system/index "标题")
+[码问](http://www.mawen.co/ "标题")
 

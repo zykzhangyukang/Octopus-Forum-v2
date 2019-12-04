@@ -6,7 +6,7 @@
     <meta name="description" content="一个学习编程，分享生活的网站，欢迎志同道合的朋友，光临我的网站"/>
     <meta name="baidu-site-verification" content="W6jNZMCChd"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>章鱼社区 | 一个学习编程，提问,分享的小客栈</title>
+    <title>章鱼问问 | 一个学习编程，提问,分享的小客栈</title>
     <link rel="stylesheet" th:href="@{/css/iconfont2.css}">
     <link rel="stylesheet" th:href="@{/css/iconfont.css}">
     <link rel="stylesheet" th:href="@{/css/my.css}">
@@ -420,29 +420,11 @@
                       buttons: false,
                       timer: 2400,
                   });
-              layer.open({
-                  type: 1
-                  ,title: false //不显示标题栏
-                  ,closeBtn: false
-                  ,area: '300px;'
-                  ,shade: 0.8
-                  ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-                  ,btn: ['瞧瞧这小样', '残忍拒绝']
-                  ,btnAlign: 'c'
-                  ,moveType: 1 //拖拽模式，0或者1
-                  ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">各位参观的小伙伴！<br>小章鱼欢迎你的到来哟~<br><br>该社区只是作为一个小社区，由于其用户基数小的可怜，但是，来到本站既是缘分（嘻嘻） <br><br>不妨交个朋友，大家相互学习，大三计算机科学与技术专业小菜鸡一枚。多多指教<br><br>我们此后的征途是星辰大海 ^_^</div>'
-                  ,success: function(layero){
-                      var btn = layero.find('.layui-layer-btn');
-                      btn.find('.layui-layer-btn0').attr({
-                          href: 'https://github.com/zykzhangyukang'
-                          ,target: '_blank'
-                      });
-                  }
-              });
           }else{
               layer.msg(data.message, {time: 2000, icon: 5, shift: 6}, function () {
               });
           }
+
        })
     });
 
