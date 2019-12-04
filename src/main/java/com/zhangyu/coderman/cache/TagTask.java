@@ -57,11 +57,11 @@ public class TagTask {
         //按权重排序
         List<String> tags = hotTagCache.updateTags();
         //清除之前的缓存
-        redisTemplate.delete("hot");
+        //redisTemplate.delete("hot");
         //放到redis中
-        for (String tag : tags) {
-            redisTemplate.opsForList().rightPush("hot",tag);
-        }
+        //for (String tag : tags) {
+            //redisTemplate.opsForList().rightPush("hot",tag);
+        //}
     }
 
 
