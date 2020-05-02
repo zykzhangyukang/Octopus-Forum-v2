@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zhangyu.coderman.dao.NotificationMapper" >
-  <resultMap id="BaseResultMap" type="com.zhangyu.coderman.modal.Notification" >
+<mapper namespace="com.zhangyu.coderman.web.dao.NotificationMapper" >
+  <resultMap id="BaseResultMap" type="com.zhangyu.coderman.web.modal.Notification" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="notifier" property="notifier" jdbcType="BIGINT" />
     <result column="receiver" property="receiver" jdbcType="BIGINT" />
@@ -71,7 +71,7 @@
   <sql id="Base_Column_List" >
     id, notifier, receiver, type, outter_id, gmt_create, status
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhangyu.coderman.modal.NotificationExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhangyu.coderman.web.modal.NotificationExample" >
     select
     <if test="distinct" >
       distinct
@@ -95,13 +95,13 @@
     delete from notification
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.zhangyu.coderman.modal.NotificationExample" >
+  <delete id="deleteByExample" parameterType="com.zhangyu.coderman.web.modal.NotificationExample" >
     delete from notification
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.zhangyu.coderman.modal.Notification" >
+  <insert id="insert" parameterType="com.zhangyu.coderman.web.modal.Notification" >
     insert into notification (id, notifier, receiver, 
       type, outter_id, gmt_create, 
       status)
@@ -109,7 +109,7 @@
       #{type,jdbcType=INTEGER}, #{outterId,jdbcType=INTEGER}, #{gmtCreate,jdbcType=BIGINT}, 
       #{status,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.zhangyu.coderman.modal.Notification" >
+  <insert id="insertSelective" parameterType="com.zhangyu.coderman.web.modal.Notification" >
     insert into notification
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -158,7 +158,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.zhangyu.coderman.modal.NotificationExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.zhangyu.coderman.web.modal.NotificationExample" resultType="java.lang.Integer" >
     select count(*) from notification
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -206,7 +206,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zhangyu.coderman.modal.Notification" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhangyu.coderman.web.modal.Notification" >
     update notification
     <set >
       <if test="notifier != null" >
@@ -230,7 +230,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zhangyu.coderman.modal.Notification" >
+  <update id="updateByPrimaryKey" parameterType="com.zhangyu.coderman.web.modal.Notification" >
     update notification
     set notifier = #{notifier,jdbcType=BIGINT},
       receiver = #{receiver,jdbcType=BIGINT},

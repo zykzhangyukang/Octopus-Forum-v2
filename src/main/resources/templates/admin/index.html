@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>系统首页</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" />
+    <link rel="stylesheet" th:href="@{/css/font-awesome.css}" />
+</head>
+<body class="layui-layout-body">
+  <div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+      <div class="layui-logo">社区后台管理系统</div>
+
+      <ul class="layui-nav layui-layout-right">
+        <li class="layui-nav-item">
+          <a href="javascript:;">
+            <img src="http://myforum.oss-cn-beijing.aliyuncs.com/postImages/1583997700266afb2dcfb-d0ac-4b2a-b344-bd867fa8f76aadmin.jpg?Expires=1678605700&OSSAccessKeyId=LTAI4FsV5R1tnt8W8kqFqBYh&Signature=bbTFeB1osdMQIZf6IZLzxgvp1gY%3D" class="layui-nav-img">
+            <span th:text="${session.admin.nickname}"></span>
+          </a>
+          <dl class="layui-nav-child">
+            <dd><a href="/admin/logout">退出登入</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="layui-side layui-bg-black">
+      <div class="layui-side-scroll">
+        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+        <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+          <li class="layui-nav-item layui-nav-itemed">
+            <a class="" href="javascript:;">网站管理</a>
+            <dl class="layui-nav-child main_left" >
+              <dd><a href="javascript:;" data-src="/admin/userManager/users" target="_top">用户管理</a></dd>
+            </dl>
+            <dl class="layui-nav-child main_left" >
+              <dd><a href="javascript:;" data-src="/admin/questionManager/questions" target="_top">帖子管理</a></dd>
+            </dl>
+            <dl class="layui-nav-child main_left" >
+              <dd><a href="javascript:;" data-src="/admin/commentManager/comments" target="_top">评论管理</a></dd>
+            </dl>
+          </li>
+          <!--<li class="layui-nav-item">-->
+            <!--<a href="javascript:;">签到管理</a>-->
+            <!--<dl class="layui-nav-child">-->
+              <!--<dd><a href="javascript:;">今日签到</a></dd>-->
+              <!--<dd><a href="javascript:;">签到设置</a></dd>-->
+             <!---->
+            <!--</dl>-->
+          <!--</li>-->
+          <!--<li class="layui-nav-item"><a href="">云市场</a></li>-->
+          <!--<li class="layui-nav-item"><a href="">发布商品</a></li>-->
+        </ul>
+      </div>
+    </div>
+    
+    <div class="layui-body">
+
+      <div class="main_right">
+        <iframe frameborder="0" scrolling="yes" style="width: 100%" src="" id="aa">
+        </iframe>
+      </div>
+      <!-- 内容主体区域 -->
+      <!--<div style="padding: 15px;">-->
+        <!---->
+
+      <!--</div>-->
+    </div>
+    
+    <div class="layui-footer">
+      <!-- 底部固定区域 -->
+      © zhangyukang.com - 底部固定区域
+    </div>
+  </div>
+  <script th:src="@{/layui/layui.js}"></script>
+  <script>
+  //JavaScript代码区域
+  layui.use(['element','jquery'], function(){
+    var element = layui.element;
+    var $=layui.jquery;
+      $(function(){
+          $("iframe").attr("src","/admin/userManager/users");
+          //获取src值
+          $(".main_left a").on("click",function(){
+              var address =$(this).attr("data-src");
+              $("iframe").attr("src",address);
+          });
+          //一下代码是根据窗口高度在设置iframe的高度
+          var frame = $("#aa");
+          var frameheight = $(window).height()-120;
+          console.log(frameheight);
+          frame.css("height",frameheight);
+      });
+  });
+  </script>
+  </body>
+</html>
+ 
+

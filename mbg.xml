@@ -20,23 +20,23 @@
 		</javaTypeResolver>
 
 		<!-- 指定javaBean生成的位置 -->
-		<javaModelGenerator targetPackage="com.zhangyu.coderman.modal"
+		<javaModelGenerator targetPackage="com.zhangyu.coderman.web.modal"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 
 		<!--指定sql映射文件生成的位置 -->
-		<sqlMapGenerator targetPackage="mapper" targetProject=".\src\main\resources">
+		<sqlMapGenerator targetPackage="mapper/admin" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
 		<!-- 指定dao接口生成的位置，mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.zhangyu.coderman.dao" targetProject=".\src\main\java">
+                             targetPackage="com.zhangyu.coderman.web.dao" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		<!-- table指定每个表的生成策略 -->
-		<table tableName="user_integral" domainObjectName="Integral"></table>
+		<table tableName="question" domainObjectName="Question"></table>
 	</context>
 </generatorConfiguration>

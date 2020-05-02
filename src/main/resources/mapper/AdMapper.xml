@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhangyu.coderman.dao.AdMapper">
-  <resultMap id="BaseResultMap" type="com.zhangyu.coderman.modal.Ad">
+<mapper namespace="com.zhangyu.coderman.web.dao.AdMapper">
+  <resultMap id="BaseResultMap" type="com.zhangyu.coderman.web.modal.Ad">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="url" jdbcType="VARCHAR" property="url" />
@@ -74,7 +74,7 @@
   <sql id="Base_Column_List">
     id, title, url, image, gmt_create, gmt_modified, gmt_start, gmt_end, status, postion
   </sql>
-  <select id="selectByExample" parameterType="com.zhangyu.coderman.modal.AdExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.zhangyu.coderman.web.modal.AdExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -98,13 +98,13 @@
     delete from ad
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.zhangyu.coderman.modal.AdExample">
+  <delete id="deleteByExample" parameterType="com.zhangyu.coderman.web.modal.AdExample">
     delete from ad
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.zhangyu.coderman.modal.Ad">
+  <insert id="insert" parameterType="com.zhangyu.coderman.web.modal.Ad">
     insert into ad (id, title, url, 
       image, gmt_create, gmt_modified, 
       gmt_start, gmt_end, status, 
@@ -114,7 +114,7 @@
       #{gmtStart,jdbcType=BIGINT}, #{gmtEnd,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, 
       #{postion,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.zhangyu.coderman.modal.Ad">
+  <insert id="insertSelective" parameterType="com.zhangyu.coderman.web.modal.Ad">
     insert into ad
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -181,7 +181,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.zhangyu.coderman.modal.AdExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.zhangyu.coderman.web.modal.AdExample" resultType="java.lang.Integer">
     select count(*) from ad
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -241,7 +241,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zhangyu.coderman.modal.Ad">
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhangyu.coderman.web.modal.Ad">
     update ad
     <set>
       <if test="title != null">
@@ -274,7 +274,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zhangyu.coderman.modal.Ad">
+  <update id="updateByPrimaryKey" parameterType="com.zhangyu.coderman.web.modal.Ad">
     update ad
     set title = #{title,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},

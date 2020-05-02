@@ -1620,7 +1620,7 @@
       }
 
       try { var rng = range(start.node, start.offset, end.offset, end.node); }
-      catch(e) {} // Our model of the DOM might be outdated, in which case the range we try to set can be impossible
+      catch(e) {} // Our entity of the DOM might be outdated, in which case the range we try to set can be impossible
       if (rng) {
         sel.removeAllRanges();
         sel.addRange(rng);

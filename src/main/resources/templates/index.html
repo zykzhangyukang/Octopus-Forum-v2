@@ -431,6 +431,7 @@
     $("#dologin_btn").click(function () {
         var username=$("#login_username").val().trim();
         var password=$("#login_password").val().trim();
+        var loginCode=$("#loginCode").val().trim();
         if(username==null||username==""){
             layer.msg("用户名不能为空", {time: 2000, icon: 5, shift: 6}, function () {
             });
@@ -441,7 +442,12 @@
             });
             return false;
         }
-        $.post("/login",{"username":username,"password":password,"time":new Date()},function (data) {
+        if(loginCode==null||loginCode==""){
+            layer.msg("验证码不能为空", {time: 2000, icon: 5, shift: 6}, function () {
+            });
+            return false;
+        }
+        $.post("/login",{"username":username,"password":password,"time":new Date(),"code":loginCode},function (data) {
             if(data.code==1000){
                 swal("恭喜你已登入成功~", "稍作等待，正在努力跳转中~", "success",
                     {

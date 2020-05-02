@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhangyu.coderman.dao.TopicMapper">
-  <resultMap id="BaseResultMap" type="com.zhangyu.coderman.modal.Topic">
+<mapper namespace="com.zhangyu.coderman.web.dao.TopicMapper">
+  <resultMap id="BaseResultMap" type="com.zhangyu.coderman.web.modal.Topic">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="talk_count" jdbcType="BIGINT" property="talkCount" />
@@ -74,7 +74,7 @@
     id, title, talk_count, follow_count, image, simple_desc, gmt_create, gmt_modified, 
     status
   </sql>
-  <select id="selectByExample" parameterType="com.zhangyu.coderman.modal.TopicExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.zhangyu.coderman.web.modal.TopicExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -98,13 +98,13 @@
     delete from topic
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.zhangyu.coderman.modal.TopicExample">
+  <delete id="deleteByExample" parameterType="com.zhangyu.coderman.web.modal.TopicExample">
     delete from topic
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.zhangyu.coderman.modal.Topic">
+  <insert id="insert" parameterType="com.zhangyu.coderman.web.modal.Topic">
     insert into topic (id, title, talk_count, 
       follow_count, image, simple_desc, 
       gmt_create, gmt_modified, status
@@ -114,7 +114,7 @@
       #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zhangyu.coderman.modal.Topic">
+  <insert id="insertSelective" parameterType="com.zhangyu.coderman.web.modal.Topic">
     insert into topic
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -175,7 +175,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.zhangyu.coderman.modal.TopicExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.zhangyu.coderman.web.modal.TopicExample" resultType="java.lang.Integer">
     select count(*) from topic
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -231,7 +231,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zhangyu.coderman.modal.Topic">
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhangyu.coderman.web.modal.Topic">
     update topic
     <set>
       <if test="title != null">
@@ -261,7 +261,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zhangyu.coderman.modal.Topic">
+  <update id="updateByPrimaryKey" parameterType="com.zhangyu.coderman.web.modal.Topic">
     update topic
     set title = #{title,jdbcType=VARCHAR},
       talk_count = #{talkCount,jdbcType=BIGINT},

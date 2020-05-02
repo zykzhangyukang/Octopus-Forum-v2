@@ -154,6 +154,31 @@ function build_question_list(data) {
     $("#question_wrapper").empty();
     var questions = data.extend.page.list;
     $.each(questions, function (index, item) {
+        var rank="";
+        switch (item.user.rank) {
+            case 0:rank="<font style='color: grey'>青铜</font>"
+                break;
+            case 1:rank="<font style='color: burlywood'>白银</font>"
+                break;
+            case 2:rank="<font style='color: #ffad13'>黄金</font>"
+                break;
+            case 3:rank="<font style='color: #303030'>钻石</font>"
+                break;
+            case 4:rank="<font style='color: green'>星耀</font>"
+                break;
+            case 5:rank="<font style='color: darkorchid'>王者</font>"
+                break;
+            case 6:rank="<font style='color: darkorange'>最强王者</font>"
+                break;
+        }
+        var top=' ';
+        switch (item.top) {
+            case 0:
+                break;
+            case 1:
+                top="<span class='label label-danger'>置顶</span>";
+                break;
+        }
         var question = $("<div  class=\"question media\">\n" +
             "  <div class=\"  media-left \">\n" +
             "    <a href=\"/people?id=" + item.creator + "\">\n" +
@@ -161,10 +186,10 @@ function build_question_list(data) {
             "    </a>\n" +
             "  </div>\n" +
             "  <div class=\"media-body\">\n" +
-            "    <a  href='/question/" + item.id + "' class=\"media-heading question_title\">" + item.title + "</a>\n" +
+            "    <a  href='/question/" + item.id + "' class=\"media-heading question_title\">" + item.title + "</a>&nbsp;"+top+"\n" +
             "  <br>  <span style=\"font-size: 12px;\">\n" +
             "                         <span class='question_type_tag'>" + item.typeName + "</span> • \n" +
-            "                  <span >"+item.user.name +"</span>  •  <span style=\"font-size: 11px;\" class=\"iconfont icon-pinglun1\">" + item.commentCount + "</span>人评论 •\n" +
+            "                  <span >"+item.user.name +"</span> 【"+rank+"】 •  <span style=\"font-size: 11px;\" class=\"iconfont icon-pinglun1\">" + item.commentCount + "</span>人评论 •\n" +
             "                     <span><small style='font-size: 11px;' class='iconfont icon-liulan1'></small>" + item.viewCount + "</span>次浏览 •\n" +
             "                        <span>" + item.likeCount + "</span>人点赞 •\n" +
             "                        发布于:<spanid=\"publish_time\"><span id='clock' class='iconfont icon-zuijingengxin' ></span>" + item.showTime + "</span>\n" +

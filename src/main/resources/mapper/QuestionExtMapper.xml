@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhangyu.coderman.dao.QuestionExtMapper">
-    <resultMap id="question_user_map" type="com.zhangyu.coderman.modal.Question">
+<mapper namespace="com.zhangyu.coderman.web.dao.QuestionExtMapper">
+    <resultMap id="question_user_map" type="com.zhangyu.coderman.web.modal.Question">
         <id column="qid" property="id"/>
         <result column="title" property="title"/>
         <result column="description" property="description"/>
@@ -13,7 +13,8 @@
         <result column="like_count" property="likeCount"/>
         <result column="comment_count" property="commentCount"/>
         <result column="category" property="category"/>
-        <association javaType="com.zhangyu.coderman.modal.User" property="user">
+        <result column="top" property="top"/>
+        <association javaType="com.zhangyu.coderman.web.modal.User" property="user">
             <result column="account" property="accountId"/>
             <result column="name" property="name"/>
             <result column="account_id" property="accountId"/>
@@ -24,10 +25,11 @@
             <result column="bio" property="bio"/>
             <result column="location" property="location"/>
             <result column="company" property="company"/>
+            <result column="rank" property="rank"/>
         </association>
 
     </resultMap>
-    <resultMap id="question_user_map_userid" type="com.zhangyu.coderman.modal.Question">
+    <resultMap id="question_user_map_userid" type="com.zhangyu.coderman.web.modal.Question">
         <id column="qid" property="id"/>
         <result column="title" property="title"/>
         <result column="description" property="description"/>
@@ -39,7 +41,8 @@
         <result column="like_count" property="likeCount"/>
         <result column="comment_count" property="commentCount"/>
         <result column="category" property="category"/>
-        <association javaType="com.zhangyu.coderman.modal.User" property="user">
+        <result column="top" property="top"/>
+        <association javaType="com.zhangyu.coderman.web.modal.User" property="user">
             <result column="account" property="accountId"/>
             <result column="name" property="name"/>
             <result column="account_id" property="accountId"/>
@@ -50,41 +53,42 @@
             <result column="bio" property="bio"/>
             <result column="location" property="location"/>
             <result column="company" property="company"/>
+            <result column="rank" property="rank"/>
         </association>
 
     </resultMap>
 
     <select id="findQuestionWithUserById" resultMap="question_user_map_userid"
-            resultType="com.zhangyu.coderman.modal.Question">
+            resultType="com.zhangyu.coderman.web.modal.Question">
     SELECT q.id qid, q.title,q.description,q.gmt_create qct ,q.gmt_modified qmt,tag,
     q.creator,q.view_count,q.like_count,q.comment_count
-    ,q.category
-    ,u.id uid,u.account_id account,u.name,u.token,
+    ,q.category,q.top
+    ,u.id uid,u.account_id account,u.name,u.token,u.rank,
     u.gmt_create uct,u.gmt_modified umt,u.avatar_url,u.bio,u.location,u.company
     FROM question q ,user u
     WHERE q.creator=u.id and q.id=#{id}
     ORDER  by qct DESC
   </select>
     <select id="listQuestionWithUserByUserId" resultMap="question_user_map_userid"
-            resultType="com.zhangyu.coderman.modal.Question">
+            resultType="com.zhangyu.coderman.web.modal.Question">
     SELECT q.id qid, q.title,q.description,q.gmt_create qct ,q.gmt_modified qmt,tag,q.creator,q.view_count,q.like_count,q.comment_count
-    ,q.category,u.id uid,u.account_id account,u.name,u.token,
+    ,q.category,u.id uid,u.account_id account,u.name,u.token,u.rank,
     u.gmt_create uct,u.gmt_modified umt,u.avatar_url,u.bio,u.location,u.company
     FROM question q ,user u
     WHERE q.creator=u.id and q.creator=#{id}
     ORDER  by qct DESC
   </select>
-    <select id="listQuestionWithUser" resultMap="question_user_map" resultType="com.zhangyu.coderman.modal.Question">
+    <select id="listQuestionWithUser" resultMap="question_user_map" resultType="com.zhangyu.coderman.web.modal.Question">
     SELECT q.id qid, q.title,q.description,q.gmt_create qct ,q.gmt_modified qmt,tag,q.creator,q.view_count,q.like_count,q.comment_count
-    ,q.category,u.id uid,u.account_id account,u.name,u.token,
+    ,q.category,u.id uid,u.account_id account,u.name,u.token,u.rank,
     u.gmt_create uct,u.gmt_modified umt,u.avatar_url,u.bio,u.location,u.company
     FROM question q ,user u
     WHERE q.creator=u.id
     ORDER  by qct DESC
   </select>
-    <select id="listQuestionCollectedWithUser" resultMap="question_user_map" resultType="com.zhangyu.coderman.modal.Question">
+    <select id="listQuestionCollectedWithUser" resultMap="question_user_map" resultType="com.zhangyu.coderman.web.modal.Question">
     SELECT q.id qid, q.title,q.description,q.gmt_create qct ,q.gmt_modified qmt,tag,q.creator,q.view_count,q.like_count,q.comment_count
-    ,q.category,u.id uid,u.account_id account,u.name,u.token,
+    ,q.category,u.id uid,u.account_id account,u.name,u.token,u.rank,
     u.gmt_create uct,u.gmt_modified umt,u.avatar_url,u.bio,u.location,u.company
     FROM question q ,user u
     WHERE q.creator=u.id
@@ -92,44 +96,44 @@
                         open="(" separator="," close=")"> #{groups}</foreach>
     ORDER  by qct DESC
   </select>
-    <select id="listQuestionWithUserBycategory" resultMap="question_user_map" resultType="com.zhangyu.coderman.modal.Question">
+    <select id="listQuestionWithUserBycategory" resultMap="question_user_map" resultType="com.zhangyu.coderman.web.modal.Question">
     SELECT q.id qid, q.title,q.description,q.gmt_create qct ,q.gmt_modified qmt,tag,q.creator,q.view_count,q.like_count,q.comment_count
-    ,q.category,u.id uid,u.account_id account,u.name,u.token,
+    ,q.category,u.id uid,u.account_id account,u.name,u.token,u.rank,
     u.gmt_create uct,u.gmt_modified umt,u.avatar_url,u.bio,u.location,u.company
     FROM question q ,user u
     WHERE q.creator=u.id and q.category=#{category}
     ORDER  by qct DESC
   </select>
-    <select id="findQuestionsWithUserByTopicAll" resultMap="question_user_map" resultType="com.zhangyu.coderman.modal.Question">
+    <select id="findQuestionsWithUserByTopicAll" resultMap="question_user_map" resultType="com.zhangyu.coderman.web.modal.Question">
     SELECT q.id qid, q.title,q.description,q.gmt_create qct ,q.gmt_modified qmt,tag,q.creator,q.view_count,q.like_count,q.comment_count
-    ,q.category,u.id uid,u.account_id account,u.name,u.token,
+    ,q.category,u.id uid,u.account_id account,u.name,u.token,u.rank,
     u.gmt_create uct,u.gmt_modified umt,u.avatar_url,u.bio,u.location,u.company
     FROM question q ,user u
     WHERE q.creator=u.id
      and q.topic=#{id}
     ORDER  by qct DESC
   </select>
-    <select id="findQuestionsWithUserByTopicJH" resultMap="question_user_map" resultType="com.zhangyu.coderman.modal.Question">
+    <select id="findQuestionsWithUserByTopicJH" resultMap="question_user_map" resultType="com.zhangyu.coderman.web.modal.Question">
     SELECT q.id qid, q.title,q.description,q.gmt_create qct ,q.gmt_modified qmt,tag,q.creator,q.view_count,q.like_count,q.comment_count
-    ,q.category,u.id uid,u.account_id account,u.name,u.token,
+    ,q.category,u.id uid,u.account_id account,u.name,u.token,u.rank,
     u.gmt_create uct,u.gmt_modified umt,u.avatar_url,u.bio,u.location,u.company
     FROM question q ,user u
     WHERE q.creator=u.id
      and q.topic=#{id}
     ORDER  by q.view_count DESC
   </select>
-    <select id="findQuestionsWithUserByTopicTJ" resultMap="question_user_map" resultType="com.zhangyu.coderman.modal.Question">
+    <select id="findQuestionsWithUserByTopicTJ" resultMap="question_user_map" resultType="com.zhangyu.coderman.web.modal.Question">
     SELECT q.id qid, q.title,q.description,q.gmt_create qct ,q.gmt_modified qmt,tag,q.creator,q.view_count,q.like_count,q.comment_count
-    ,q.category,u.id uid,u.account_id account,u.name,u.token,
+    ,q.category,u.id uid,u.account_id account,u.name,u.token,u.rank,
     u.gmt_create uct,u.gmt_modified umt,u.avatar_url,u.bio,u.location,u.company
     FROM question q ,user u
     WHERE q.creator=u.id
      and q.topic=#{id}
     ORDER  by q.like_count DESC
   </select>
-    <select id="findQuestionsWithUserByTopicWT" resultMap="question_user_map" resultType="com.zhangyu.coderman.modal.Question">
+    <select id="findQuestionsWithUserByTopicWT" resultMap="question_user_map" resultType="com.zhangyu.coderman.web.modal.Question">
     SELECT q.id qid, q.title,q.description,q.gmt_create qct ,q.gmt_modified qmt,tag,q.creator,q.view_count,q.like_count,q.comment_count
-    ,q.category,u.id uid,u.account_id account,u.name,u.token,
+    ,q.category,u.id uid,u.account_id account,u.name,u.token,u.rank,
     u.gmt_create uct,u.gmt_modified umt,u.avatar_url,u.bio,u.location,u.company
     FROM question q ,user u
     WHERE q.creator=u.id
@@ -138,10 +142,10 @@
     ORDER  by q.gmt_create DESC
   </select>
     <select id="listQuestionWithUserBySearch" resultMap="question_user_map"
-            resultType="com.zhangyu.coderman.modal.Question">
-        SELECT q.id qid, q.title,q.gmt_create qct ,q.gmt_modified
-        qmt,tag,q.creator,q.view_count,q.like_count,q.comment_count,q.category
-        ,u.id uid,u.account_id account,u.name,u.token,
+            resultType="com.zhangyu.coderman.web.modal.Question">
+        SELECT q.id qid, q.title,q.gmt_create qct ,q.gmt_modified qmt,q.top
+        ,tag,q.creator,q.view_count,q.like_count,q.comment_count,q.category
+        ,u.id uid,u.account_id account,u.name,u.token,u.rank,
         u.gmt_create uct,u.gmt_modified umt,u.avatar_url,u.bio,u.location,u.company
         FROM question q ,user u
         <where>
@@ -156,16 +160,16 @@
                 and tag regexp #{tag}
             </if>
 
-            ORDER by qct DESC
+            ORDER by top Desc,qct DESC
         </where>
 
 
     </select>
     <select id="listQuestionHotByTime" resultMap="question_user_map"
-            resultType="com.zhangyu.coderman.modal.Question">
+            resultType="com.zhangyu.coderman.web.modal.Question">
         SELECT q.id qid, q.title,q.gmt_create qct ,q.gmt_modified
-        qmt,tag,q.creator,q.view_count,q.like_count,q.comment_count,q.category
-        ,u.id uid,u.account_id account,u.name,u.token,
+        qmt,tag,q.creator,q.view_count,q.like_count,q.comment_count,q.category,q.top
+        ,u.id uid,u.account_id account,u.name,u.token,u.rank,
         u.gmt_create uct,u.gmt_modified umt,u.avatar_url,u.bio,u.location,u.company
         FROM question q ,user u
         <where>
@@ -179,14 +183,14 @@
             <if test="category!=null and category!=''">
                 and category = #{category}
             </if>
-            ORDER by comment_count desc, view_count Desc ,like_count DESC,qct desc
+            ORDER by top Desc, comment_count desc, view_count Desc ,like_count DESC,qct desc
         </where>
     </select>
     <select id="listQuestionZeroHot" resultMap="question_user_map"
-            resultType="com.zhangyu.coderman.modal.Question">
+            resultType="com.zhangyu.coderman.web.modal.Question">
         SELECT q.id qid, q.title,q.gmt_create qct ,q.gmt_modified
-        qmt,tag,q.creator,q.like_count,q.like_count,q.comment_count,q.view_count,q.category
-        ,u.id uid,u.account_id account,u.name,u.token,
+        qmt,tag,q.creator,q.like_count,q.top,q.comment_count,q.view_count,q.category
+        ,u.id uid,u.account_id account,u.name,u.token,u.rank,
         u.gmt_create uct,u.gmt_modified umt,u.avatar_url,u.bio,u.location,u.company
         FROM question q ,user u
         <where>
@@ -198,14 +202,14 @@
                 and category = #{category}
             </if>
             AND
-            comment_count=0 order by q.gmt_create desc
+            comment_count=0 order by top Desc, q.gmt_create desc
         </where>
     </select>
     <select id="listQuestionMostLike" resultMap="question_user_map"
-            resultType="com.zhangyu.coderman.modal.Question">
+            resultType="com.zhangyu.coderman.web.modal.Question">
         SELECT q.id qid, q.title,q.gmt_create qct ,q.gmt_modified
-        qmt,tag,q.creator,q.like_count,q.like_count,q.comment_count,q.view_count,q.category
-        ,u.id uid,u.account_id account,u.name,u.token,
+        qmt,tag,q.creator,q.like_count,q.top,q.comment_count,q.view_count,q.category
+        ,u.id uid,u.account_id account,u.name,u.token,u.rank,
         u.gmt_create uct,u.gmt_modified umt,u.avatar_url,u.bio,u.location,u.company
         FROM question q ,user u
         <where>
@@ -217,14 +221,14 @@
                 and category = #{category}
             </if>
             and like_count !=0
-            order by like_count desc , view_count desc,comment_count desc ,q.gmt_create desc
+            order by top Desc, like_count desc , view_count desc,comment_count desc ,q.gmt_create desc
         </where>
     </select>
     <select id="listQuestionMostComment" resultMap="question_user_map"
-            resultType="com.zhangyu.coderman.modal.Question">
+            resultType="com.zhangyu.coderman.web.modal.Question">
         SELECT q.id qid, q.title,q.gmt_create qct ,q.gmt_modified
-        qmt,tag,q.creator,q.like_count,q.like_count,q.comment_count,q.view_count,q.category
-        ,u.id uid,u.account_id account,u.name,u.token,
+        qmt,tag,q.creator,q.like_count,q.top,q.comment_count,q.view_count,q.category
+        ,u.id uid,u.account_id account,u.name,u.token,u.rank,
         u.gmt_create uct,u.gmt_modified umt,u.avatar_url,u.bio,u.location,u.company
         FROM question q ,user u
         <where>
@@ -236,14 +240,14 @@
                 and category = #{category}
             </if>
             and comment_count !=0
-            order by comment_count desc , view_count desc,like_count desc,q.gmt_create desc
+            order by top Desc, comment_count desc , view_count desc,like_count desc,q.gmt_create desc
         </where>
     </select>
     <select id="listQuestionViewHot" resultMap="question_user_map"
-            resultType="com.zhangyu.coderman.modal.Question">
+            resultType="com.zhangyu.coderman.web.modal.Question">
         SELECT q.id qid, q.title,q.gmt_create qct ,q.gmt_modified
-        qmt,tag,q.creator,q.like_count,q.like_count,q.comment_count,q.view_count,q.category
-        ,u.id uid,u.account_id account,u.name,u.token,
+        qmt,tag,q.creator,q.like_count,q.comment_count,q.view_count,q.category,q.top
+        ,u.id uid,u.account_id account,u.name,u.token,u.rank,
         u.gmt_create uct,u.gmt_modified umt,u.avatar_url,u.bio,u.location,u.company
         FROM question q ,user u
         <where>
@@ -255,7 +259,7 @@
                 and category = #{category}
             </if>
             and comment_count !=0
-            order by view_count desc
+            order by top Desc, view_count desc
         </where>
     </select>
 

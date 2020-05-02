@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zhangyu.coderman.dao.QuestionZanMapper" >
-  <resultMap id="BaseResultMap" type="com.zhangyu.coderman.modal.QuestionZan" >
+<mapper namespace="com.zhangyu.coderman.web.dao.QuestionZanMapper" >
+  <resultMap id="BaseResultMap" type="com.zhangyu.coderman.web.modal.QuestionZan" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="question_id" property="questionId" jdbcType="BIGINT" />
@@ -69,7 +69,7 @@
   <sql id="Base_Column_List" >
     id, user_id, question_id, gmt_create, gmt_modified
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhangyu.coderman.modal.QuestionZanExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhangyu.coderman.web.modal.QuestionZanExample" >
     select
     <if test="distinct" >
       distinct
@@ -93,19 +93,19 @@
     delete from question_zan
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.zhangyu.coderman.modal.QuestionZanExample" >
+  <delete id="deleteByExample" parameterType="com.zhangyu.coderman.web.modal.QuestionZanExample" >
     delete from question_zan
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.zhangyu.coderman.modal.QuestionZan" >
+  <insert id="insert" parameterType="com.zhangyu.coderman.web.modal.QuestionZan" >
     insert into question_zan (id, user_id, question_id, 
       gmt_create, gmt_modified)
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=INTEGER}, #{questionId,jdbcType=BIGINT}, 
       #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.zhangyu.coderman.modal.QuestionZan" >
+  <insert id="insertSelective" parameterType="com.zhangyu.coderman.web.modal.QuestionZan" >
     insert into question_zan
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -142,7 +142,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.zhangyu.coderman.modal.QuestionZanExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.zhangyu.coderman.web.modal.QuestionZanExample" resultType="java.lang.Integer" >
     select count(*) from question_zan
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -182,7 +182,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zhangyu.coderman.modal.QuestionZan" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhangyu.coderman.web.modal.QuestionZan" >
     update question_zan
     <set >
       <if test="userId != null" >
@@ -200,7 +200,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zhangyu.coderman.modal.QuestionZan" >
+  <update id="updateByPrimaryKey" parameterType="com.zhangyu.coderman.web.modal.QuestionZan" >
     update question_zan
     set user_id = #{userId,jdbcType=INTEGER},
       question_id = #{questionId,jdbcType=BIGINT},

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zhangyu.coderman.dao.CommentZanMapper" >
-  <resultMap id="BaseResultMap" type="com.zhangyu.coderman.modal.CommentZan" >
+<mapper namespace="com.zhangyu.coderman.web.dao.CommentZanMapper" >
+  <resultMap id="BaseResultMap" type="com.zhangyu.coderman.web.modal.CommentZan" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="comment_id" property="commentId" jdbcType="INTEGER" />
@@ -69,7 +69,7 @@
   <sql id="Base_Column_List" >
     id, user_id, comment_id, gmt_create, gmt_modified
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhangyu.coderman.modal.CommentZanExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhangyu.coderman.web.modal.CommentZanExample" >
     select
     <if test="distinct" >
       distinct
@@ -93,19 +93,19 @@
     delete from comment_zan
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.zhangyu.coderman.modal.CommentZanExample" >
+  <delete id="deleteByExample" parameterType="com.zhangyu.coderman.web.modal.CommentZanExample" >
     delete from comment_zan
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.zhangyu.coderman.modal.CommentZan" >
+  <insert id="insert" parameterType="com.zhangyu.coderman.web.modal.CommentZan" >
     insert into comment_zan (id, user_id, comment_id, 
       gmt_create, gmt_modified)
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{commentId,jdbcType=INTEGER}, 
       #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.zhangyu.coderman.modal.CommentZan" >
+  <insert id="insertSelective" parameterType="com.zhangyu.coderman.web.modal.CommentZan" >
     insert into comment_zan
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -142,7 +142,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.zhangyu.coderman.modal.CommentZanExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.zhangyu.coderman.web.modal.CommentZanExample" resultType="java.lang.Integer" >
     select count(*) from comment_zan
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -182,7 +182,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zhangyu.coderman.modal.CommentZan" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhangyu.coderman.web.modal.CommentZan" >
     update comment_zan
     <set >
       <if test="userId != null" >
@@ -200,7 +200,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zhangyu.coderman.modal.CommentZan" >
+  <update id="updateByPrimaryKey" parameterType="com.zhangyu.coderman.web.modal.CommentZan" >
     update comment_zan
     set user_id = #{userId,jdbcType=BIGINT},
       comment_id = #{commentId,jdbcType=INTEGER},

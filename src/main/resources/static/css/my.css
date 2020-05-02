@@ -27,7 +27,7 @@ body, html {
     width: 100%;
     padding: 0px 10px;
     color: #303030;
-    font-weight: 600;
+    font-weight: normal;
 }
 #myTabs li a{
     color: #000000!important;
@@ -45,13 +45,13 @@ body, html {
     font-size: 17px;
     font-family: "微软雅黑";}
 .list li{transition: all 50ms;opacity: .8}
-.list li:hover{background-color: #1890ff; !important;color: #fff!important;}
+.list li:hover{background-color: #303030; !important;color: #fff!important;}
 .list li:hover a{color: #ffff}
 .list .active a{
     color: #FFFFFF!important;
 }
 #types .active{
-    background-color: #1890ff; !important;
+    background-color: #303030; !important;
 }
 #types li a{text-decoration: none;}
 

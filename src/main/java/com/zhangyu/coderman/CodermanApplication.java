@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@MapperScan("com.zhangyu.coderman.dao")
+@MapperScan("com.zhangyu.coderman.*.dao")
 @SpringBootApplication
 @EnableTransactionManagement
 @EnableScheduling   // 1.开启定时任务

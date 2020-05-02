@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zhangyu.coderman.dao.TopicFollowMapper" >
-  <resultMap id="BaseResultMap" type="com.zhangyu.coderman.modal.TopicFollow" >
+<mapper namespace="com.zhangyu.coderman.web.dao.TopicFollowMapper" >
+  <resultMap id="BaseResultMap" type="com.zhangyu.coderman.web.modal.TopicFollow" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="topic_id" property="topicId" jdbcType="INTEGER" />
@@ -70,7 +70,7 @@
   <sql id="Base_Column_List" >
     id, user_id, topic_id, status, gmt_create, gmt_modified
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhangyu.coderman.modal.TopicFollowExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhangyu.coderman.web.modal.TopicFollowExample" >
     select
     <if test="distinct" >
       distinct
@@ -94,13 +94,13 @@
     delete from topic_follow
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.zhangyu.coderman.modal.TopicFollowExample" >
+  <delete id="deleteByExample" parameterType="com.zhangyu.coderman.web.modal.TopicFollowExample" >
     delete from topic_follow
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.zhangyu.coderman.modal.TopicFollow" >
+  <insert id="insert" parameterType="com.zhangyu.coderman.web.modal.TopicFollow" >
     insert into topic_follow (id, user_id, topic_id, 
       status, gmt_create, gmt_modified
       )
@@ -108,7 +108,7 @@
       #{status,jdbcType=INTEGER}, #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zhangyu.coderman.modal.TopicFollow" >
+  <insert id="insertSelective" parameterType="com.zhangyu.coderman.web.modal.TopicFollow" >
     insert into topic_follow
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -151,7 +151,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.zhangyu.coderman.modal.TopicFollowExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.zhangyu.coderman.web.modal.TopicFollowExample" resultType="java.lang.Integer" >
     select count(*) from topic_follow
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -195,7 +195,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zhangyu.coderman.modal.TopicFollow" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhangyu.coderman.web.modal.TopicFollow" >
     update topic_follow
     <set >
       <if test="userId != null" >
@@ -216,7 +216,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zhangyu.coderman.modal.TopicFollow" >
+  <update id="updateByPrimaryKey" parameterType="com.zhangyu.coderman.web.modal.TopicFollow" >
     update topic_follow
     set user_id = #{userId,jdbcType=INTEGER},
       topic_id = #{topicId,jdbcType=INTEGER},

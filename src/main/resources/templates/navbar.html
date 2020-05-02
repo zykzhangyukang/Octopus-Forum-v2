@@ -32,6 +32,23 @@
                                 <input type="password" name="password" class="form-control" id="login_password" placeholder="请输入密码" required="required">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="loginCode"  class="col-sm-2 control-label glyphicon glyphicon-lock" ></label>
+
+                            <row >
+                                <div class="col-md-5">
+                            <input type="text" name="loginCode" class="form-control" id="loginCode" placeholder="请输入验证码" required="required">
+                                </div>
+                                <div class="col-md-5">
+                                    <img style="cursor: pointer;vertical-align: center;" src="/verifyCode/LoginImageCode" height="28px;" onclick=" $(this)[0].src ='/verifyCode/LoginImageCode?token='+Math.random()" title="点击换一张">
+                                </div>
+
+                            </row>
+
+
+
+                        </div>
+                        <!--验证码-->
                         <!--记住密码-->
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
@@ -65,12 +82,12 @@
                                         </p>
                                     </a>
                                 </div>
-                                <div class="col-md-4 text-center">
-                                    <a th:href="${#request.getServletContext().getAttribute('baidu_loginUrl')}">
-                                        <img th:width="30" th:src="@{/images/baidu.svg}" alt="" width="36" height="36">
-                                        <p style="font-size: 12px">百度登录</p>
-                                    </a>
-                                </div>
+                                <!--<div class="col-md-4 text-center">-->
+                                    <!--<a th:href="${#request.getServletContext().getAttribute('baidu_loginUrl')}">-->
+                                        <!--<img th:width="30" th:src="@{/images/baidu.svg}" alt="" width="36" height="36">-->
+                                        <!--<p style="font-size: 12px">百度登录</p>-->
+                                    <!--</a>-->
+                                <!--</div>-->
 
 
                             </div>
@@ -114,12 +131,16 @@
                                      <label for="">手机号码</label>
                                      <input class="form-control phone" id="phone"  type="phone" placeholder="输入大陆合法的电话号码">
                                  </div>
+                             <div class="form-group">
                              <label for="">验证码</label>
                                  <div class="row">
-                                     <div class="col-md-8">   <input type="code"  class="form-control" name="code" id="code"></div>
-                                     <div class="col-md-4"> <input type="button" disabled value="获取验证码" name="yzm" class="yzm form-control btn btn-success btn-sm" ></div>
+                                     <div class="col-md-8">
+                                         <input type="code"  class="form-control" name="code" id="code"></div>
+                                     <div class="col-md-4">
+                                         <img style="vertical-align: center;" src="/verifyCode/RegImageCode" height="28px;" onclick=" $(this)[0].src ='/verifyCode/RegImageCode?token='+Math.random()" title="点击换一张">
+                                     </div>
                                  </div>
-
+                             </div>
 
                              <br>
                              <br>
@@ -158,7 +179,7 @@
                 </form>
                 <!--导航栏广告链接-->
                 <ul class="nav navbar-nav">
-                    <li th:class="${navLi=='chat'? 'active':'' }"><a th:href="@{/chat}" href="#">闲聊</a></li>
+                    <!--<li th:class="${navLi=='chat'? 'active':'' }"><a th:href="@{/chat}" href="#">闲聊</a></li>-->
                     <li th:each="ad:${#session.getAttribute('NAV')}"><a target="_blank" th:href="${ad.url}" th:text="${ad.title}">源码</a></li>
                 </ul>
 
@@ -188,15 +209,16 @@
                     </li>
                     <li th:if="${session.user==null}">
                         <a title="QQ登入" th:href="${#request.getServletContext().getAttribute('qq_loginUrl')}" style="cursor: pointer;">
-                        <img th:height="22" src="http://www.zykcoderman.xyz/images/qq.svg">
+                            <img th:height="25" th:src="@{/images/qq.svg}">
+
                     </a>
                     </li>
                     </li>
-                    <li th:if="${session.user==null}">
-                        <a title="百度登入" th:href="${#request.getServletContext().getAttribute('baidu_loginUrl')}" style="cursor: pointer;">
-                        <img th:height="22" src="http://www.zykcoderman.xyz/images/baidu.svg">
-                    </a>
-                    </li>
+                    <!--<li th:if="${session.user==null}">-->
+                        <!--<a title="百度登入" th:href="${#request.getServletContext().getAttribute('baidu_loginUrl')}" style="cursor: pointer;">-->
+                            <!--<img th:height="22" th:src="@{/images/github.svg}">-->
+                    <!--</a>-->
+                    <!--</li>-->
                     <!--<li th:if="${session.user==null}"><a th:href="${#request.getServletContext().getAttribute('loginUrl')}">登入</a>-->
                     <!--</li>-->
                 </ul>

@@ -17,18 +17,19 @@
 ## 快速运行
 1. 安装必备工具  
 JDK，Maven, Redis，git
+
 2. 克隆代码到本地  
 
-3. 运行命令创建数据库脚本
+3. 运行命令创建数据库脚本(注意字符编码设置为utf8mb4)
 
-4. 运行打包命令
-```sh
-mvn package
-```
+4. 启动redis服务
+
 5. 运行项目  
+
 ```sh
 java -jar target/coderman-0.0.1-SNAPSHOT.jar
 ```
+
 ## 目录结构
 
 主要目录结构如下：
@@ -46,7 +47,7 @@ java -jar target/coderman-0.0.1-SNAPSHOT.jar
 │  ├─exception          自定义异常
 │  ├─dao                数据访问层
 │  ├─utils              工具类
-│__├─test               测试类
+|__├─test               测试类
 ~~~~
 
 6. 访问项目
@@ -137,19 +138,19 @@ oss.accessKeySecret =*******
 
 5. 浏览器访问：http://localhost:8080 (看到已下页面就成功了)
 
+6. 后台管理地址: http://localhost:8080/admin/login
+![后台](/images/admin.png "optional title")
+
+- username: admin
+- password: 123456
 
 ![首页](/images/2.png "optional title")
 
 ![话题](/images/3.PNG "optional title")
+## 打赏
+![微信](/images/weixinpay.png "optional title")
 
-
-
-
-## 更新
-1. 2019.10.21:添加积分模块，实现每日点赞
-2. 每日签到可获得10积分
-3. 2019.10.22：当你的问题被别人收藏的时候可以获得5点积分.
-4. 当你的问题被别人点赞的时候你可以获得2积分
+![支付宝](/images/ailipay.jpg "optional title")
 
 ## 联系
 章鱼社区交流群:830790908

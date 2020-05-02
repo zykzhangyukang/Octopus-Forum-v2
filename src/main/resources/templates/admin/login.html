@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>社区后台管理系统</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" />
+    <link rel="stylesheet" th:href="@{/css/font-awesome.css}" />
+    <script src="webjars/jquery/3.1.1/jquery.min.js" th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+    <style>
+        body{
+            background-color: #2d3a4b;
+            background-size: cover;
+            background-position: 50% 0;
+            width: 100%;
+        }
+        form{
+            width: 350px;
+            margin: auto;
+            margin-top:150px;
+        }
+        .layui-input:hover{
+            box-shadow: 0px 0px 8px #1E9FFF;
+        }
+        
+        .layui-input:focus{
+                box-shadow: 0px 0px 8px #1E9FFF;
+        }
+        .layui-input-block{
+            margin-left:0px!important ;
+        }
+        .layui-form-item{
+            margin-bottom: 20px!important;
+        }
+        input:hover{cursor: pointer;}
+    </style>
+</head>
+<body>
+
+    <form class="layui-form layui-anim layui-anim-scaleSpring" action="" lay-filter="example"
+        style="background-color: #fff;padding:50px 25px ;opacity: .5;border-radius: 10px;">
+        <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input type="text" name="username" required lay-verify="required"  autocomplete="off" placeholder="请输入用户名" class="layui-input">
+        </div>
+        </div>
+        <div class="layui-form-item" >
+        <div class="layui-input-block">
+            <input type="password"  name="password" required lay-verify="required" placeholder="请输入用户密码" autocomplete="off" class="layui-input">
+        </div>
+        </div>
+        <div class="layui-form-item" >
+        <div class="layui-input-block">
+            <input type="code"  class="layui-input" name="code" id="code"  lay-verify="required" required placeholder="输入验证码（不区分大小写）"></div>
+            <br>
+            <div class="col-md-4">
+                <img style="vertical-align: center;cursor: pointer" src="/verifyCode/createAdminLoginCode" height="28px;" onclick=" $(this)[0].src ='/verifyCode/createAdminLoginCode?token='+Math.random()" title="点击换一张">
+            </div>
+        </div>
+        </div>
+        <!--<div class="layui-form-item">-->
+            <!--<div class="layui-input-block">-->
+              <!--<select name="role" lay-filter="role" required lay-verify="required">-->
+                <!--<option value=""  selected="">请选择角色</option>-->
+                <!--<option value="admin">管理员</option>-->
+                <!--<option value="user">用户</option>-->
+              <!--</select>-->
+            <!--</div>-->
+          <!--</div>        -->
+        <div class="layui-form-item" pane="">
+        <div class="layui-input-block">
+            <input type="checkbox" name="remberPwd" lay-skin="primary" title="记住密码" checked="">
+        </div>
+        </div>
+        <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn layui-btn-fluid layui-btn-danger" lay-submit="" lay-filter="doLoginBtn">
+               立&nbsp;即&nbsp;登&nbsp; 入</button>
+        </div>
+        </div>
+        
+
+    </form>
+</body>
+</html>
+ 
+<script th:src="@{/layui/layui.js}"></script>
+<script>
+    layui.use(['form','layer','jquery','element'], function () {
+        var form = layui.form,
+        layer = layui.layer;
+        var $=layui.jquery;
+            form.on('submit(doLoginBtn)',function (data){
+            //发送post请求
+            $.post("/admin/doLogin",data.field,function (res) {
+                if(res.code==1000){
+                    window.location.href="/admin/index";
+                }else{
+                    layer.msg(res.message);
+                }
+            })
+          
+        })
+    });
+</script>

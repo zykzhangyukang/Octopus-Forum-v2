@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>帖子管理</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all" />
+</head>
+<body>
+<!--模糊查询部分-->
+<form class="layui-form" id="searchForm" lay-filter="searchForm">
+    <blockquote class="layui-elem-quote quoteBox">
+        <form class="layui-form">
+            <span>标题:</span>&nbsp;&nbsp;
+            <div class="layui-inline">
+                <input class="layui-input" name="title" id="title" placeholder="帖子标题" autocomplete="off">
+            </div>
+            <span>标签:</span>&nbsp;&nbsp;
+            <div class="layui-inline">
+                <input class="layui-input" name="tag" id="tag'" placeholder="标签" autocomplete="off">
+            </div>
+            <div class="layui-inline">
+                &nbsp;&nbsp;
+                <button type="button" class="layui-btn layui-btn-normal"  lay-submit="" lay-filter="doSearch"><span class="layui-icon layui-icon-search"></span>搜索</button></legend>
+                <button type="reset" class="layui-btn layui-btn-warm" ><span class="layui-icon layui-icon-refresh"></span>重置</button></legend>
+            </div>
+        </form>
+    </blockquote>
+</form>
+
+<!--设置星级用户弹出框-->
+<div style="display: none;padding: 10px" id="RankModal">
+    <form action="" method="post" class="layui-form " id="dataFrm" lay-filter="dataFrm">
+        <div class="layui-form-item">
+            <input type="hidden" name="id">
+            <label class="layui-form-label">星级</label>
+            <div class="layui-input-block">
+                <input type="radio" name="rank" value="0" title="青铜" checked="">
+                <input type="radio" name="rank" value="1" title="白银">
+                <input type="radio" name="rank" value="2" title="黄金">
+                <input type="radio" name="rank" value="3" title="钻石">
+                <input type="radio" name="rank" value="4" title="星耀">
+                <input type="radio" name="rank" value="5" title="王者">
+                <input type="radio" name="rank" value="6" title="最强王者" >
+
+            </div>
+        </div>
+        <div class="layui-form-item layui-row layui-col-xs12" >
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="doSubmit">赋予星级</button>
+                <button type="reset" class="layui-btn layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/html" id="switchTpl">
+    <input type="checkbox" name="top" value="{{d.id}}" lay-skin="switch" lay-text="取消|置顶" lay-filter="top" {{ d.top == 1 ? 'checked' : '' }}>
+</script>
+<!--用户管理表格-->
+<!--数据表格-->
+<table class="layui-hide" id="questionsTable" lay-filter="questionsTable"></table>
+<!--表格工具条-->
+<!--<div id="toolBar" style="display: none;">-->
+    <!--<button type="button" class="layui-btn  layui-bg-blue layui-btn-sm"  lay-event="add"><span class="layui-icon">&#xe608;</span>添加用户</button>-->
+    <!--<button type="button" class="layui-btn  layui-btn-sm layui-btn-danger"  lay-event="batchDelete" ><i class="layui-icon"></i>批量删除</button>-->
+    <!--<button type="button" class="layui-btn  layui-btn-sm layui-btn-warm"  lay-event="reSet" ><span class="layui-icon ">&#xe669;</span>重置用户</button>-->
+<!--</div>-->
+<!--单行工具条-->
+<script type="text/html" id="lineBar">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除帖子</a>
+</script>
+<script th:src="@{/layui/layui.js}"></script>
+</body>
+</html>
+<script  type="text/javascript">
+    layui.use(['laydate', 'laypage', 'layer', 'table','form'], function(){
+        var laydate = layui.laydate //日期
+        var table = layui.table //表格
+        var form=layui.form;
+        var $=layui.jquery;
+
+        //加载数据
+        var tableIns= table.render({
+            elem: '#questionsTable'
+            ,url:'/admin/questionManager/list'
+            ,title: '问题表'
+            ,page: true //开启分页
+            ,height:'full-75'
+            ,toolbar: '#toolBar' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+            ,cols: [ [
+                {type: 'checkbox', fixed: 'left'}
+                ,{field: 'id', title: 'ID', width:80, sort: true, fixed: 'left', totalRowText: '合计：'}
+                ,{field: 'title', title: '标题'}
+                ,{field: 'tag', title: '标签', sort: true}
+                ,{field: 'commentCount', title: '评论数', sort: true}
+                ,{field: 'likeCount', title: '点赞数', sort: true}
+                ,{field: 'viewCount', title: '浏览量', sort: true}
+                ,{field:'top', title:'是否置顶', width:110, templet: '#switchTpl', unresize: true}
+                ,{fixed: 'right',title:'查看数' , align:'center', toolbar: '#lineBar'}
+            ] ]
+        });
+        //模糊查询
+        form.on('submit(doSearch)',function (data) {
+            tableIns.reload({
+                where:data.field,
+                page:{
+                    curr:1
+                }
+            });
+        })
+        //监听工具条的事件
+        table.on("toolbar(questionsTable)",function(obj){
+            var data = obj.data;
+            switch(obj.event){
+                case 'batchDelete':
+                    batchDelete(data);
+                    break;
+            };
+        });
+        //监听行工具条的事件
+        table.on("tool(questionsTable)",function(obj){
+            var data = obj.data; //获得当前行数据
+            switch(obj.event){
+                case 'delete':
+                    deleteQuestion(data);
+                    break;
+                case 'openRankModal':
+                    openRankModal(data);
+                    break;
+            };
+        });
+        //更新性别
+        form.on('switch(top)', function(obj){
+            var top=obj.elem.checked==false?'0':'1';
+            $.get("/admin/questionManager/updateTop",{"id":this.value,"top":top},function (res) {
+                if(res.code==1000){
+                    layer.msg("操作成功");
+                    tableIns.reload();
+                }else {
+                    layer.msg("操作失败")
+                }
+
+            })
+        });
+        //删除
+        function deleteQuestion(data) {
+            layer.confirm('你确定要删除['+data.title+']这个帖子吗?', {icon: 3, title:'提示'}, function(index){
+                $.get("/admin/questionManager/delete",{id:data.id},function(res){
+                    if(res.code==1000){
+                        tableIns.reload();
+                        layer.msg("删除成功");
+                        return;
+                    }
+                    layer.msg(res.msg);
+                })
+                layer.close(index);
+            });
+        }
+        var mainIndex;
+        //打开添加的弹出层
+        var url;
+        function openRankModal(data){
+            mainIndex=layer.open({
+                type:1,
+                content: $("#RankModal"),
+                area:['800px','200px'],
+                title:'设置星级用户',
+                success:function(){
+                    form.val("dataFrm",data);
+                    url="/admin/questionManager/setRank";
+                }
+            });
+        }
+
+        //更新
+        form.on('submit(doSubmit)',function (data) {
+            $.post(url,data.field,function(res){
+                if(res.code==1000){
+                    layer.msg("更新等级成功");
+                    tableIns.reload();
+                }
+                layer.close(mainIndex);
+            })
+            return false;
+        })
+
+        //批量删除
+        function batchDelete() {
+            //得到选中行
+            var checkStatus = table.checkStatus('loginLogTable');
+            var dataLength=checkStatus.data.length;
+            if(dataLength>0){
+                layer.confirm('你确定要删除这些数据吗?', {icon: 3, title:'提示'}, function(index){
+                    var data=checkStatus.data; //获取选中行的数据
+                    var ids="";
+                    $.each(data,function(index,item){
+                        ids+=item.id+",";
+                    })
+                    ids=ids.substring(0,ids.length-1);
+                    $.get("/login/batchDelete",{"ids":ids},function(res){
+                        if(res.code==0){
+                            tableIns.reload();
+                        }
+                        layer.msg(res.msg);
+                    })
+                    layer.close(index);
+                });
+
+            }else{
+                layer.msg("请选中操作行")
+            }
+        }
+    });
+</script>
